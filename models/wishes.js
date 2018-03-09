@@ -3,9 +3,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const wishsSchema = Schema({
+const wishesSchema = Schema({
     name: String,
     priority: String,
     description : String
 })
-module.exports = mongoose.model('wishs',wishsSchema)
+module.exports = mongoose.model('wishe',wishesSchema)

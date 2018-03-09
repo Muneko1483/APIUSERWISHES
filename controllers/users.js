@@ -1,25 +1,27 @@
 'use strict'
 const Users = require('../models/users')
 
-function getUsers (req, res){
-    let usersId = req.params.usersId
+function getUsers(req, res){
+    Users.find({}).sort({'_id': -1}).exec((err,users ) =>{
+        if(err) return res.status(500).send({message:`Error making the request: ${err}` })
+        if(!users) return res.status(404).send({message: `The usernames do not exist`})
+           
+            res.status(200).send({users})
+    })   
+}
 
-    Users.findById(usersId, (err,users) =>{
-        if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}` })
-        if(!users) return res.status(404).send({message: `El deseo no existe`})
+function getUserById (req, res){
+    let usersId = req.params.usersId;
+
+    Users.findById(usersId).exec ((err,users) =>{
+        if(err) return res.status(500).send({message:`Error making the request: ${err}` })
+        if(!users) return res.status(404).send({message: `Username does not exist`})
 
         res.status(200).send({users})
              })
 }
 
-function getUsers (req, res){
-    Users.find({}, (err,users ) =>{
-        if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}` })
-        if(!users) return res.status(404).send({message: `No existe no existe`})
 
-        res.status(200).send({users})
-    })   
-}
 
 function saveUsers(req, res){
     console.log('POST /users')
@@ -31,7 +33,7 @@ function saveUsers(req, res){
      users.password = req.body.password
  
      users.save((err,usersStored) =>{
-         if(err) res.status(500).send({message: `Error al salvar la base de datos ${err}`})
+         if(err) res.status(500).send({message: `Error to save the database ${err}`})
  
          res.status(200).send({users: usersStored})
      })
@@ -43,7 +45,7 @@ function updateUsers(req, res){
     let update = req.body
 
     Users.findByIdAndUpdate(usersId, update,(err, usersUpdate) => {
-        if(err) res.status(500).send({message: `Error al actualizar el deseo: ${err}`})
+        if(err) res.status(500).send({message: `Error updating the user: ${err}`})
 
         res.status(200).send({ users: usersUpdate})
     })
@@ -54,15 +56,15 @@ function deleteUsers (req, res){
     let delet = req.body
 
         Users.findByIdAndRemove(usersId, delet, (err,usersdelet) =>{
-            if(err) res.status(500).send({message: `Error al borrar el deseo: ${err}`})
+            if(err) res.status(500).send({message: `Error deleting the user: ${err}`})
             res.status(200).send({users:usersdelet})
         
-            })
+            }) 
 }
-
-module.exports ={
+    
+module.exports = {
     getUsers,
-    getUsers,
+    getUserById,
     saveUsers,
     updateUsers,
     deleteUsers
