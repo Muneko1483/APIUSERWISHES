@@ -12,9 +12,9 @@ function getWishes (req, res){
 }
 
 function getWisheById (req, res){
-    let wisheslistId = req.params.wishelistId;
+    let wishelistId = req.params.wishelistId
 
-    Wishe.findById(wisheslistId).exec ((err,wishelist) =>{
+    WisheList.findById(wishelistId).exec ((err,wishelist) =>{
         if(err) return res.status(500).send({message:`Error making the request: ${err}` })
         if(!wishelist) return res.status(404).send({message: `Wish does not exist`})
 
@@ -51,7 +51,7 @@ function updateWishe(req, res){
 }
 
 function deleteWishe (req, res){
-    let wisheslistId = req.params.wishelistId
+    let wishelistId = req.params.wishelistId
     let delet = req.body
 
         WisheList.findByIdAndRemove(wishelistId, delet, (err,wishelistdelet) =>{
