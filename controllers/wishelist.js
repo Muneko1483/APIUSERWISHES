@@ -1,33 +1,33 @@
 'use strict'
 
-const Wishe = require('../models/wishes')
+const WisheList = require('../models/wishelist')
 
 function getWishes (req, res){
-    Wishe.find({}).sort({'_id': -1}).exec ((err,wishes ) =>{
+    WisheList.find({}).sort({'_id': -1}).exec ((err,wishelist ) =>{
         if(err) return res.status(500).send({message:`Error making the request: ${err}` })
-        if(!wishes) return res.status(404).send({message: `The wishes do not exist`})
+        if(!wishelist) return res.status(404).send({message: `The wishes do not exist`})
 
-        res.status(200).send({wishes})
+        res.status(200).send({wishelist})
     })   
 }
 
 function getWisheById (req, res){
-    let wishesId = req.params.wisheId;
+    let wisheslistId = req.params.wishelistId;
 
-    Wishe.findById(wishesId).exec ((err,wishes) =>{
+    Wishe.findById(wisheslistId).exec ((err,wishelist) =>{
         if(err) return res.status(500).send({message:`Error making the request: ${err}` })
-        if(!wishes) return res.status(404).send({message: `Wish does not exist`})
+        if(!wishelist) return res.status(404).send({message: `Wish does not exist`})
 
-        res.status(200).send({wishes})
+        res.status(200).send({wishelist})
              })
 }
 
 function saveWishe(req, res){
-    console.log('POST /wishe')
+    console.log('POST /wishelist')
     console.log(req.body)
  
-    let wishes = new Wishe()
-     wishes.name =req.body.name
+    let wishes = new WisheList()
+     wishes.name =req.body.name 
      wishes.priority= req.body.priority
      wishes.description = req.body.description
  
@@ -40,23 +40,23 @@ function saveWishe(req, res){
 }
 
 function updateWishe(req, res){
-    let wishesId = req.params.wisheId
+    let wishelistId = req.params.wishelistId
     let update = req.body
 
-    Wishe.findByIdAndUpdate(wishesId, update,(err, wishesUpdate) => {
+    WisheList.findByIdAndUpdate(wisheslistId, update,(err, wishelistUpdate) => {
         if(err) res.status(500).send({message: `Error updating wish: ${err}`})
 
-        res.status(200).send({ wishes: wishesUpdate})
+        res.status(200).send({ wishelist: wishelistUpdate})
     })
 }
 
 function deleteWishe (req, res){
-    let wishesId = req.params.wisheId
+    let wisheslistId = req.params.wishelistId
     let delet = req.body
 
-        Wishe.findByIdAndRemove(wishesId, delet, (err,wishesdelet) =>{
+        WisheList.findByIdAndRemove(wishelistId, delet, (err,wishelistdelet) =>{
             if(err) res.status(500).send({message: `Error al borrar el deseo: ${err}`})
-            res.status(200).send({wishes :wishesdelet})
+            res.status(200).send({wishelist :wishelistdelet})
         
             })
 }

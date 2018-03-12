@@ -11,17 +11,15 @@ function getUsers(req, res){
 }
 
 function getUserById (req, res){
-    let usersId = req.params.usersId;
+    let userId = req.params.userId;
 
-    Users.findById(usersId).exec ((err,users) =>{
+    Users.findById(userId).exec ((err,users) =>{
         if(err) return res.status(500).send({message:`Error making the request: ${err}` })
         if(!users) return res.status(404).send({message: `Username does not exist`})
 
         res.status(200).send({users})
              })
 }
-
-
 
 function saveUsers(req, res){
     console.log('POST /users')
@@ -31,6 +29,8 @@ function saveUsers(req, res){
      users.name =req.body.name
      users.email= req.body.email
      users.password = req.body.password
+    
+
  
      users.save((err,usersStored) =>{
          if(err) res.status(500).send({message: `Error to save the database ${err}`})
@@ -41,10 +41,10 @@ function saveUsers(req, res){
 }
 
 function updateUsers(req, res){
-    let usersId = req.params.usersId
+    let userId = req.params.userId
     let update = req.body
 
-    Users.findByIdAndUpdate(usersId, update,(err, usersUpdate) => {
+    Users.findByIdAndUpdate(userId, update,(err, usersUpdate) => {
         if(err) res.status(500).send({message: `Error updating the user: ${err}`})
 
         res.status(200).send({ users: usersUpdate})
@@ -52,10 +52,10 @@ function updateUsers(req, res){
 }
 
 function deleteUsers (req, res){
-    let usersId = req.params.usersId
+    let userId = req.params.userId
     let delet = req.body
 
-        Users.findByIdAndRemove(usersId, delet, (err,usersdelet) =>{
+        Users.findByIdAndRemove(userId, delet, (err,usersdelet) =>{
             if(err) res.status(500).send({message: `Error deleting the user: ${err}`})
             res.status(200).send({users:usersdelet})
         

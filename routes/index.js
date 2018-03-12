@@ -4,28 +4,29 @@
 
 const express = require('express')
 const usersCtrl = require('../controllers/users')
-const wishesCtrl = require('../controllers/wishe')
+const wishesCtrl = require('../controllers/wishelist')
+
 const users = express.Router()
 
 users.get('/',usersCtrl.getUsers)
-users.get('/:usersId',usersCtrl.getUserById)
+users.get('/:userId',usersCtrl.getUserById)
 users.post('/',usersCtrl.saveUsers) 
-users.put('/:usersId',usersCtrl.updateUsers) 
-users.delete('/:usersId',usersCtrl.deleteUsers) 
+users.put('/:userId',usersCtrl.updateUsers) 
+users.delete('/:userId',usersCtrl.deleteUsers) 
 //users.get('/:usersId/wishs/:wishsId',wishsCtrl.getWishs)
 
-const wishe = express.Router()
+const wishelist = express.Router()
 
-wishe.get('/',wishesCtrl.getWishes)
-wishe.get('/:wisheId',wishesCtrl.getWisheById) 
-wishe.post('/',wishesCtrl.saveWishe) 
-wishe.put('/:wisheId',wishesCtrl.updateWishe)
-wishe.delete('/:wisheId',wishesCtrl.deleteWishe) 
+wishelist.get('/',wishesCtrl.getWishes)
+wishelist.get('/:wisheId',wishesCtrl.getWisheById) 
+users.post('/:userId/wishelist',wishesCtrl.saveWishe) 
+wishelist.put('/:wisheId',wishesCtrl.updateWishe)
+wishelist.delete('/:wisheId',wishesCtrl.deleteWishe) 
 
 
 const root = express.Router()
 
 root.use('/users', users)
-root.use('/wishe', wishe)
+root.use('/wishelist', wishelist)
 
 module.exports = root

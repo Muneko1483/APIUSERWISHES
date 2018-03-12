@@ -6,6 +6,7 @@ const Schema = mongoose.Schema
 const wishesSchema = Schema({
     name: String,
     priority: String,
-    description : String
+    description : String,
+   
 })
-module.exports = mongoose.model('wishe',wishesSchema)
+module.exports = mongoose.model('wishelist',wishesSchema)
