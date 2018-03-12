@@ -3,14 +3,14 @@
 const Users = require('../models/users')
 const WisheList = require('../models/wishelist')
 
-/*
+
 function getUserByIdWisheListByID(req, res) {
 	Users.find({}, function(err, users) {
     	WisheList.populate(users, {path: "wishelist"},function(err, users){
         	res.status(200).send(users);
         }); 
     });
-}*/
+}
 
 function getUsers(req, res){
     Users.find({}).sort({'_id': -1}).exec((err,users ) =>{
@@ -74,7 +74,7 @@ function deleteUsers (req, res){
 }
     
 module.exports = {
-   // getUserByIdWisheListByID,
+    getUserByIdWisheListByID,
     getUsers,
     getUserById,
     saveUsers,

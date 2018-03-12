@@ -43,7 +43,7 @@ function updateWishe(req, res){
     let wishelistId = req.params.wishelistId
     let update = req.body
 
-    WisheList.findByIdAndUpdate(wisheslistId, update,(err, wishelistUpdate) => {
+    WisheList.findByIdAndUpdate(wishelistId, update,(err, wishelistUpdate) => {
         if(err) res.status(500).send({message: `Error updating wish: ${err}`})
 
         res.status(200).send({ wishelist: wishelistUpdate})
