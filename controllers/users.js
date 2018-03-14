@@ -4,12 +4,13 @@ const Users = require('../models/users')
 const WisheList = require('../models/wishelist')
 
 
-function getUserByIdWisheListByID(req, res) {
-	Users.find({}, function(err, users) {
-    	WisheList.populate(users, {path: "wishelist"},function(err, users){
-        	res.status(200).send(users);
-        }); 
-    });
+function getUserByIdWisheListByID(req, res){
+ Users.find({}, function(err, users) {
+   WisheList.populate(users, {path: "wishe"},function(err, users){
+        res.status(200).send(users);
+        console.log(users)
+    })
+})
 }
 
 function getUsers(req, res){

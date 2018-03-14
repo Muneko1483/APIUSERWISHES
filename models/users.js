@@ -2,16 +2,21 @@
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const wishelist = require('../models/wishelist')
+const wisher = require('../models/wishelist')
+const wishelist = mongoose.model('wishelist')
+
+
+
 
 
 const usersSchema = Schema({
-    id_: Schema.Types.ObjectId,
+
     name: String,
     email: String,
     password: String,
-    wishelist:[wishelist.schema]
-
+    wishe: [{type: Schema.Types.ObjectId, ref:'wishelist'}]
    
+    //[wishelist.schema]
 })
+
 module.exports = mongoose.model('Users', usersSchema)

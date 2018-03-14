@@ -1,6 +1,7 @@
 'use strict'
 
 const WisheList = require('../models/wishelist')
+const Users = require('../models/users')
 
 function getWishes (req, res){
     WisheList.find({}).sort({'_id': -1}).exec ((err,wishelist ) =>{
@@ -31,13 +32,20 @@ function saveWishe(req, res){
      wishes.priority= req.body.priority
      wishes.description = req.body.description
  
-     wishes.save((err,wishesStored) =>{
+     let userId = req.params.userId
+     let update = {$push: {wishe: wishes}}
+     Users.findByIdAndUpdate(userId, update,(err, usersUpdate) => {
+        if(err) res.status(500).send({message: `Error updating the user: ${err}`})
+
+    }) 
+}
+     /*wishes.save((err,wishesStored) =>{
          if(err) res.status(500).send({message: `Error saving the database ${err}`})
  
          res.status(200).send({wishes: wishesStored})
      })
 
-}
+}*/
 
 function updateWishe(req, res){
     let wishelistId = req.params.wishelistId
