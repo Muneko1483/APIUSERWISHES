@@ -10,7 +10,7 @@ function getWishes (req, res){
 
         res.status(200).send({wishelist})
     })   
-}
+} 
 
 function getWisheById (req, res){
     let wishelistId = req.params.wishelistId
@@ -38,14 +38,13 @@ function saveWishe(req, res){
         if(err) res.status(500).send({message: `Error updating the user: ${err}`})
 
     }) 
-}
-     /*wishes.save((err,wishesStored) =>{
+
+     wishes.save((err,wishesStored) =>{
          if(err) res.status(500).send({message: `Error saving the database ${err}`})
- 
          res.status(200).send({wishes: wishesStored})
      })
 
-}*/
+}
 
 function updateWishe(req, res){
     let wishelistId = req.params.wishelistId

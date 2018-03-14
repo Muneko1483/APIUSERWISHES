@@ -9,7 +9,7 @@ const wishesSchema = Schema({
     name: String,
     priority: String,
     description : String,
-    user :[{type: Schema.Types.ObjectId, ref:'Users'}]
+   // user :[{type: Schema.Types.ObjectId, ref:'Users'}]
 
    
 })
